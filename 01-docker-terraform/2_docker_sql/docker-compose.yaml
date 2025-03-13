@@ -1,0 +1,31 @@
+services:  # The services key is essential
+  pgdatabase:  # Your existing Postgres service
+    image: postgres:13
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: bmaleh
+      POSTGRES_DB: ny_taxi
+    volumes:
+      - ny_taxi_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "root"]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  pgadmin:  # pgAdmin service - MUST be under 'services' and indented
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: malehbright@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: maleh@2002#  
+    depends_on:
+      - pgdatabase
+
+volumes:
+  ny_taxi_postgres_data:
+

@@ -1,0 +1,12 @@
+FROM python:3.9.1-slim-buster
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends wget  # Only if needed
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ingest_data.py .
+
+ENTRYPOINT ["python", "ingest_data.py"]
