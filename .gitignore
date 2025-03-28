@@ -1,5 +1,0 @@
-.ipynb_checkpoints
-*.parquet
-.env
-__pycache__/
-ingest_data_output.ipynb
